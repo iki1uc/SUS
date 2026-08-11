@@ -19,14 +19,16 @@ button{background:#111;color:#0f0;border:1px solid #333;padding:8px 16px;}
 
 <pre id="out">Bereit...</pre>
 
+<script src="fouru.js"></script> <!-- WICHTIG -->
+
 <script>
 function run(){
-  const data = {
-    layer: "4u",
-    type: "export",
-    status: "ok"
-  };
-  out.textContent = JSON.stringify(data, null, 2);
+  const outData = fourU("start8.html aktiv");
+
+  out.textContent =
+    "ALT:  " + outData.alt + "\n" +
+    "EVO7: " + outData.evo7 + "\n" +
+    "EVO8: " + outData.evo8;
 }
 </script>
 
