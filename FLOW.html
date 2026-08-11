@@ -1,33 +1,64 @@
-<script>
-/* iki1uc – MAIN · Bewegung 4 · FLOW
-   Funktioniert nur, wenn Lage = "FLOW"
-   Universelle Fließbewegung / Stabilität / Durchlauf
-*/
+export const FLOW = {
+  code: "FLOW",
+  state: "active",
+  action: "stream",
+  meaning: "Fließbewegung / Stabilität / Durchlauf",
+  station: "SUS",
+  respo: "FLOW",
+  axis: "AIR",
+  io: "allIN",
 
-const MAIN = {
-    lage: "FLOW",
-    respo: "FLOW",
-    move: "stream",
-    axis: "AIR",
-    io: "allIN",
-    exec() {
-        if (this.lage !== "FLOW") return "NO-FLOW";
-        return {
-            state: "ACTIVE",
-            direction: "STREAM",
-            respo: this.respo,
-            io: this.io,
-            axis: this.axis,
-            pipeline: 3,
-            port: {
-                ma1: "flow",
-                ma2: "stable",
-                ma3: "continuous"
-            }
-        };
+  flow: true,
+  break: false,
+  root: false,
+
+  pipeline: 3,
+
+  port: {
+    ma1: "flow",
+    ma2: "stable",
+    ma3: "continuous"
+  },
+
+  exec(lage) {
+    if (lage !== "FLOW") {
+      return {
+        status: "NO-FLOW",
+        message: "Station nicht im FLOW-Zustand",
+        given: lage
+      };
     }
-};
 
-const FLOW = MAIN.exec();
-console.log(FLOW);
-</script>
+    return {
+      status: "FLOW",
+      direction: "STREAM",
+      respo: this.respo,
+      axis: this.axis,
+      io: this.io,
+      pipeline: this.pipeline,
+      port: this.port
+    };
+  },
+
+  // BONUS: Name-Kontrolle
+  checkName(name) {
+    const valid = [
+      "OK", "NOK", "FLOW", "BREAK", "ECHO",
+      "VOID", "ROOT", "DROP", "RISE", "SPIN", "SHIFT"
+    ];
+
+    if (!valid.includes(name)) {
+      return {
+        status: "attention",
+        message: "Name nicht gültig – bitte prüfen",
+        given: name
+      };
+    }
+
+    return {
+      status: "valid",
+      message: "Name korrekt",
+      given: name
+    };
+  }
+};
