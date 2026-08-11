@@ -2,30 +2,35 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>4u – Response Layer</title>
-
+<title>SUS – Systemstart</title>
 <style>
 body{background:#000;color:#0f0;font-family:monospace;padding:20px;}
-pre{background:#111;padding:20px;border:1px solid #333;}
-button{background:#111;color:#0f0;border:1px solid #333;padding:8px 16px;}
+a{color:#0f0;text-decoration:none;display:block;margin:8px 0;}
 </style>
 </head>
 
 <body>
 
-<h1>4u – Response Layer</h1>
+<h1>SUS – Systemstart</h1>
 
-<button onclick="show()">RESPO</button>
+<h2>Stationen</h2>
+<a href="stations/PUSH.html">PUSH</a>
+<a href="stations/PULL.html">PULL</a>
+<a href="stations/SHIFT.html">SHIFT</a>
+<a href="stations/FLOW.html">FLOW</a>
+<a href="stations/BREAK.html">BREAK</a>
+<a href="stations/SPIN.html">SPIN</a>
+<a href="stations/RISE.html">RISE</a>
+<a href="stations/DROP.html">DROP</a>
+<a href="stations/ROOT.html">ROOT</a>
 
-<pre id="out">Bereit...</pre>
+<h2>4u Layer</h2>
+<a href="4u/IMport.html">IMport</a>
+<a href="4u/EXport.html">EXport</a>
+<a href="4u/EDITport.html">EDITport</a>
+<a href="4u/ID.html">ID</a>
 
-<script type="module">
-import { respo } from "./respo.js";
-
-function show(){
-  out.textContent = JSON.stringify(respo, null, 2);
-}
-</script>
+<script type="module" src="js/SUS.js"></script>
 
 </body>
 </html>
