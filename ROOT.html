@@ -1,33 +1,66 @@
-<script>
-/* iki1uc – MAIN · Bewegung 9 · ROOT
-   Funktioniert nur, wenn Lage = "ROOT"
-   Universelle Grundbewegung / Ursprung / Stabilisierung / Rückkehr
-*/
+export const ROOT = {
+  code: "ROOT",
+  state: "stable",
+  action: "origin",
+  meaning: "Ursprung / Stabilisierung / Rückkehr / Basis",
+  station: "SUS",
+  respo: "ROOT",
+  axis: "AIR",
+  io: "allIN",
 
-const MAIN = {
-    lage: "ROOT",
-    respo: "ROOT",
-    move: "origin",
-    axis: "AIR",
-    io: "allIN",
-    exec() {
-        if (this.lage !== "ROOT") return "NO-ROOT";
-        return {
-            state: "STABLE",
-            direction: "ORIGIN",
-            respo: this.respo,
-            io: this.io,
-            axis: this.axis,
-            pipeline: 0,
-            port: {
-                ma1: "anchor",
-                ma2: "origin",
-                ma3: "base"
-            }
-        };
+  flow: false,
+  break: false,
+  root: true,
+
+  pipeline: 0,
+
+  port: {
+    ma1: "anchor",
+    ma2: "origin",
+    ma3: "base"
+  },
+
+  exec(lage) {
+    if (lage !== "ROOT") {
+      return {
+        status: "NO-ROOT",
+        message: "Station nicht im ROOT-Zustand",
+        given: lage
+      };
     }
-};
 
-const ROOT = MAIN.exec();
-console.log(ROOT);
-</script>
+    return {
+      status: "ROOT",
+      direction: "ORIGIN",
+      respo: this.respo,
+      axis: this.axis,
+      io: this.io,
+      pipeline: this.pipeline,
+      port: this.port
+    };
+  },
+
+  // BONUS: Name-Kontrolle
+  checkName(name) {
+    const valid = [
+      "OK", "NOK", "FLOW", "BREAK", "ECHO",
+      "VOID", "ROOT", "DROP", "RISE",
+      "SPIN", "SHIFT", "IMPORT", "EXPORT",
+      "PULL", "PUSH"
+    ];
+
+    if (!valid.includes(name)) {
+      return {
+        status: "attention",
+        message: "Name nicht gültig – bitte prüfen",
+        given: name
+      };
+    }
+
+    return {
+      status: "valid",
+      message: "Name korrekt",
+      given: name
+    };
+  }
+};
