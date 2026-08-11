@@ -1,33 +1,60 @@
-<script>
-/* iki1uc – MAIN · Bewegung 8 · DROP
-   Funktioniert nur, wenn Lage = "DROP"
-   Universelle Abwärtsbewegung / Entlastung / Abgabe / Reduktion
-*/
+export const DROP = {
+  code: "DROP",
+  state: "active",
+  action: "descend",
+  meaning: "Abwärtsbewegung / Entlastung / Abgabe",
+  station: "SUS",
+  respo: "NOK",
+  axis: "AIV",
+  io: "allOUT",
+  flow: false,
+  break: false,
+  root: false,
 
-const MAIN = {
-    lage: "DROP",
-    respo: "NOK",
-    move: "descend",
-    axis: "AIV",
-    io: "allOUT",
-    exec() {
-        if (this.lage !== "DROP") return "NO-DROP";
-        return {
-            state: "ACTIVE",
-            direction: "DOWN",
-            respo: this.respo,
-            io: this.io,
-            axis: this.axis,
-            pipeline: 1,
-            port: {
-                ma1: "release",
-                ma2: "reduce",
-                ma3: "lower"
-            }
-        };
+  pipeline: 1,
+
+  port: {
+    ma1: "release",
+    ma2: "reduce",
+    ma3: "lower"
+  },
+
+  exec(lage) {
+    if (lage !== "DROP") {
+      return {
+        status: "NO-DROP",
+        message: "Station nicht im DROP-Zustand",
+        given: lage
+      };
     }
-};
 
-const DROP = MAIN.exec();
-console.log(DROP);
-</script>
+    return {
+      status: "DROP",
+      direction: "DOWN",
+      respo: this.respo,
+      axis: this.axis,
+      io: this.io,
+      pipeline: this.pipeline,
+      port: this.port
+    };
+  },
+
+  // BONUS: Name-Kontrolle
+  checkName(name) {
+    const valid = ["OK", "NOK", "FLOW", "BREAK", "ECHO", "VOID", "ROOT", "DROP"];
+
+    if (!valid.includes(name)) {
+      return {
+        status: "attention",
+        message: "Name nicht gültig – bitte prüfen",
+        given: name
+      };
+    }
+
+    return {
+      status: "valid",
+      message: "Name korrekt",
+      given: name
+    };
+  }
+};
