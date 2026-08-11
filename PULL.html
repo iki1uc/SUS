@@ -1,33 +1,66 @@
-<script>
-/* iki1uc – MAIN · Bewegung 2 · PULL
-   Funktioniert nur, wenn Lage = "PULL"
-   Universelle Rückwärtsbewegung / Rückführung
-*/
+export const PULL = {
+  code: "PULL",
+  state: "active",
+  action: "backward",
+  meaning: "Rückwärtsbewegung / Rückführung",
+  station: "SUS",
+  respo: "ROOT",
+  axis: "AIV",
+  io: "allOUT",
 
-const MAIN = {
-    lage: "PULL",
-    respo: "ROOT",
-    move: "backward",
-    axis: "AIV",
-    io: "allOUT",
-    exec() {
-        if (this.lage !== "PULL") return "NO-PULL";
-        return {
-            state: "ACTIVE",
-            direction: "BACKWARD",
-            respo: this.respo,
-            io: this.io,
-            axis: this.axis,
-            pipeline: 0,
-            port: {
-                ma1: "none",
-                ma2: "return",
-                ma3: "collect"
-            }
-        };
+  flow: false,
+  break: false,
+  root: true,
+
+  pipeline: 0,
+
+  port: {
+    ma1: "none",
+    ma2: "return",
+    ma3: "collect"
+  },
+
+  exec(lage) {
+    if (lage !== "PULL") {
+      return {
+        status: "NO-PULL",
+        message: "Station nicht im PULL-Zustand",
+        given: lage
+      };
     }
-};
 
-const PULL = MAIN.exec();
-console.log(PULL);
-</script>
+    return {
+      status: "PULL",
+      direction: "BACKWARD",
+      respo: this.respo,
+      axis: this.axis,
+      io: this.io,
+      pipeline: this.pipeline,
+      port: this.port
+    };
+  },
+
+  // BONUS: Name-Kontrolle
+  checkName(name) {
+    const valid = [
+      "OK", "NOK", "FLOW", "BREAK", "ECHO",
+      "VOID", "ROOT", "DROP", "RISE",
+      "SPIN", "SHIFT", "IMPORT", "EXPORT",
+      "PULL", "PUSH"
+    ];
+
+    if (!valid.includes(name)) {
+      return {
+        status: "attention",
+        message: "Name nicht gültig – bitte prüfen",
+        given: name
+      };
+    }
+
+    return {
+      status: "valid",
+      message: "Name korrekt",
+      given: name
+    };
+  }
+};
