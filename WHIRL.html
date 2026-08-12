@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>WHIRL · 81 Tunnel</title>
+
+  <style>
+    body { background:#111; color:#fff; font-family:monospace; padding:20px; }
+    .grid { display:grid; grid-template-columns:repeat(9, 30px); gap:4px; }
+    .cell { width:30px; height:30px; text-align:center; line-height:30px; }
+
+    .green { background:#003300; color:#0f0; }
+    .yellow { background:#333300; color:#ff0; }
+    .red { background:#330000; color:#f00; }
+  </style>
+</head>
+
+<body>
+
+<h1 class="yellow">WHIRL · NC²□ Drift</h1>
+<p>MOD: WHIRL</p>
+<p>TYPE: Soft-Landing</p>
+<p>CORE: iki1uc</p>
+<p>VERSION: 1.0</p>
+<p>STATUS: active</p>
+
+<h3 class="green">81‑Felder Tunnel</h3>
+
+<div class="grid" id="whirlGrid"></div>
+
+<script type="module">
+  import { RESPO } from "./SUS.js";
+  import { SUS_scanRESPO } from "./SUS.scanRESPO";
+
+  const grid = document.getElementById("whirlGrid");
+
+  const scan = SUS_scanRESPO(RESPO);
+
+  const colors = {
+    OK: "green",
+    FLOW: "yellow",
+    BREAK: "red",
+    NOK: "red",
+    ECHO: "yellow",
+    VOID: "red",
+    ROOT: "green"
+  };
+
+  const keys = Object.keys(scan.respo);
+
+  for (let i = 0; i < 81; i++) {
+    const cell = document.createElement("div");
+    const key = keys[i % keys.length];
+    cell.className = "cell " + colors[key];
+    cell.innerText = key;
+    grid.appendChild(cell);
+  }
+</script>
+
+</body>
+</html>
