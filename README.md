@@ -1,25 +1,14 @@
 🛰️ SUS – Station Unified System
-SUS ist dein Netzwerk‑System, das alle Bewegungen, Stationen und Response‑Zustände
-aus iki1uc in eine funktionale Struktur überführt.
+MOD: SUS
+TYPE: Soft‑Landing
+CORE: iki1uc
+VERSION: 1.0
+STATUS: active
 
-SUS besteht aus:
+SUS ist das zentrale Netzwerk‑System, das alle Bewegungen, Stationen, Layer und Response‑Zustände aus iki1uc zu einem einheitlichen, neutralen, NC‑konformen System verbindet.
 
-Stationen (1–9)
-
-Bewegungen (PUSH, PULL, SHIFT, FLOW, BREAK, SPIN, RISE, DROP, ROOT)
-
-4u‑Layer (EDITport, IMport, EXport, ID)
-
-JS‑Station‑Objekten
-
-HTML‑Modulen
-
-CSV‑Kontroll‑Daten
-
-Pipeline‑Achsen (AIV, AIR, PX‑IN, PX‑EDIT)
-
-🔥 Ziel von SUS
-SUS verbindet:
+🌐 Was SUS verbindet
+SUS ist die Achse zwischen:
 
 Bewegung (JS)
 
@@ -33,29 +22,29 @@ Layer (4u)
 
 Achsen (iki1uc)
 
-zu einem einheitlichen System, das:
+Damit kann SUS:
 
-Daten empfängt
+Daten empfangen
 
-Daten verarbeitet
+Daten verarbeiten
 
-Daten exportiert
+Daten exportieren
 
-Bewegungen ausführt
+Bewegungen ausführen
 
-Response‑Zustände erzeugt
+Response‑Zustände erzeugen
 
-Stationen synchronisiert
+Stationen synchronisieren
 
-Flow‑Zyklen steuert
+Flow‑Zyklen steuern
 
-360°‑Rotation erkennt
+360°‑Rotation erkennen
 
-100%‑Stabilität prüft
+100%‑Stabilität prüfen
 
 🧱 Struktur von SUS
-✔ Stationen (HTML)
-Jede Station ist eine Datei:
+🟩 Stationen (HTML)
+Jede Station ist ein eigenes Modul:
 
 PUSH
 
@@ -75,33 +64,7 @@ DROP
 
 ROOT
 
-Diese Dateien sind Station‑Module, die du über JS steuerst.
-
-✔ 4u‑Layer (HTML + JS)
-EDITport
-
-IMport
-
-EXport
-
-ID
-
-Diese Layer sind die Schnittstellen zwischen Benutzer und System.
-
-✔ JS‑Station‑Objekte
-Jede Bewegung hat ein JS‑Objekt:
-
-FLOW
-
-BREAK
-
-DROP
-
-PULL
-
-usw.
-
-Diese Objekte enthalten:
+Jede Station nutzt ein JS‑Objekt mit:
 
 Achse
 
@@ -113,33 +76,42 @@ Ports
 
 exec()
 
-✔ CSV‑Kontrolle
+🟨 4u‑Layer (HTML + JS)
+Die vier Layer sind die Schnittstellen zwischen Benutzer und System:
+
+EDITport
+
+IMport
+
+EXport
+
+ID
+
+Sie bilden die User‑Achse von iki1uc.
+
+🟥 CSV‑Kontrolle (NC‑konform)
 CSV wird nur geladen, wenn:
 
 100% erreicht
 
 360° erreicht
 
-Danach wird CSV gelöscht.
+Danach wird CSV automatisch gelöscht.
 
 🔥 RESPO‑Achse in SUS
-RESPO ist die Response‑Logik:
+RESPO ist die neutrale Response‑Logik:
 
-OK → Öffnen
+Zustand	Farbe	Bedeutung
+OK	🟩 Grün	Öffnen
+NOK	🟥 Rot	Block
+FLOW	🟨 Gelb	Durchlauf
+BREAK	🟥 Rot	Stop
+ECHO	🟨 Gelb	Spiegel
+VOID	🟥 Rot	Neutral
+ROOT	🟩 Grün	Ursprung
 
-NOK → Block
 
-FLOW → Durchlauf
-
-BREAK → Stop
-
-ECHO → Spiegel
-
-VOID → Neutral
-
-ROOT → Ursprung
-
-Jede Station nutzt einen dieser Werte.
+Jede Station nutzt genau einen dieser Werte.
 
 🧩 Warum SUS funktioniert
 Weil du:
