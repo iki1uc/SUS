@@ -1,17 +1,4 @@
-SUS = {
-  mode: "neutral",
-  can: ["zeigen", "durchlassen", "vektorisieren"],
-  cannot: ["erzwingen", "binden", "verändern"]
-}
-// NET.js
-import { SUS } from "./SUS.js";
-
-NET.modules.push(SUS);
-
-NET.route = function(vec) {
-  return SUS.run(vec);
-};
-// NET.js – vervollständigt
+// NET.js – FINAL · NC conform · iki1uc
 
 import { SUS } from "./SUS.js";
 import { SUS_load } from "./SUS.load";
@@ -22,6 +9,12 @@ import { SUS_scanRESPO } from "./SUS.scanRESPO";
 import { EYE } from "./EYE.js";
 
 export const NET = {
+  MOD: "NET",
+  TYPE: "Soft-Landing",
+  CORE: "iki1uc",
+  VERSION: "1.0",
+  STATUS: "active",
+
   modules: [SUS, EYE],
 
   run(vec) {
