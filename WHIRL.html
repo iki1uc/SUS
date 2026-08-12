@@ -29,32 +29,17 @@
 <div class="grid" id="whirlGrid"></div>
 
 <script type="module">
-  import { RESPO } from "./SUS.js";
-  import { SUS_scanRESPO } from "./SUS.scanRESPO";
+  import { WHIRL } from "./WHIRL.js";
 
   const grid = document.getElementById("whirlGrid");
+  const tunnel = WHIRL.tunnel();
 
-  const scan = SUS_scanRESPO(RESPO);
-
-  const colors = {
-    OK: "green",
-    FLOW: "yellow",
-    BREAK: "red",
-    NOK: "red",
-    ECHO: "yellow",
-    VOID: "red",
-    ROOT: "green"
-  };
-
-  const keys = Object.keys(scan.respo);
-
-  for (let i = 0; i < 81; i++) {
-    const cell = document.createElement("div");
-    const key = keys[i % keys.length];
-    cell.className = "cell " + colors[key];
-    cell.innerText = key;
-    grid.appendChild(cell);
-  }
+  tunnel.forEach(cell => {
+    const div = document.createElement("div");
+    div.className = "cell " + cell.color;
+    div.innerText = cell.respo;
+    grid.appendChild(div);
+  });
 </script>
 
 </body>
