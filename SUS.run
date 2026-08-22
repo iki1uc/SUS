@@ -1,1 +1,26 @@
+# SUS.run — Schach‑Technik‑System
 
+version: 1.0
+type: SCHACH_TECHNIK_SYSTEM
+
+modules:
+  - laeufer_geometrie
+  - springer_dreiecke
+  - turm_linien
+  - dame_druck
+  - bauern_strukturen
+  - koenig_sicherheit
+  - opfer_mechanik
+  - drei_zuege_vorausschau
+
+algorithmen:
+  laeufer_geometrie:
+    - diagonalen_lesen
+    - raumkontrolle
+    - drucklinien
+  springer_dreiecke:
+    - gabeln
+    - dreieckswege
+    - sprungfelder
+  turm_linien:
+    - offene
