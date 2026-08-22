@@ -1,1 +1,77 @@
+# SUS.scanRESPO — Response-Analyse-Modul
+
+version: 1.0
+type: SCHACH_ANALYSE_MODUL
+
+scan:
+  - zug_folgen
+  - fehler_erkennen
+  - muster_erkennen
+  - opfer_bewerten
+  - laeufer_diagonalen
+  - springer_dreiecke
+  - turm_linien
+  - dame_druck
+  - bauern_struktur
+  - koenig_sicherheit
+
+algorithmen:
+  zug_folgen:
+    - mein_zug
+    - gegner_zug
+    - folge_zug
+
+  fehler_erkennen:
+    - zu_frueh_angriff
+    - raumverlust
+    - figur_ungenutzt
+    - koenig_gefaehrdet
+
+  muster_erkennen:
+    - wiederholungen
+    - druckmuster
+    - raumdominanz
+    - schwache_felder
+
+  opfer_bewerten:
+    - positionsopfer
+    - zeitopfer
+    - raumopfer
+
+  laeufer_diagonalen:
+    - lange_diagonale
+    - kurze_diagonale
+    - druckpunkte
+
+  springer_dreiecke:
+    - gabel
+    - sprungdreieck
+    - feldkontrolle
+
+  turm_linien:
+    - offene_linien
+    - verdopplung
+    - druck_auf_achsen
+
+  dame_druck:
+    - zentraldruck
+    - kombinationsdruck
+    - raumdominanz
+
+  bauern_struktur:
+    - ketten
+    - hebel
+    - durchbruch
+
+  koenig_sicherheit:
+    - rochade
+    - luftloch
+    - gegnerdruck
+
+output:
+  - fehlerliste
+  - zugempfehlung
+  - musterbericht
+  - opferanalyse
+  - sicherheitsstatus
 
